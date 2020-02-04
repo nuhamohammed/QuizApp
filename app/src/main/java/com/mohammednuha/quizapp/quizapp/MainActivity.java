@@ -1,5 +1,6 @@
 package com.mohammednuha.quizapp.quizapp;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,11 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button submitButton;//use Alt+Enter to auto-import Button
+    private Button  colorButton;
     EditText responseText;
     TextView displayText;
+
+    public int getRandomColor(){
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         displayText=findViewById(R.id.textBox);
         responseText=findViewById(R.id.responseEditText);
         submitButton = findViewById(R.id.clickButton);
+        colorButton = findViewById(R.id.colorbtn);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
                 displayText.setText("Hi "+responseText.getText().toString()+"!");
             }
         });
-
+        colorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                colorButton.setBackgroundColor(getRandomColor());
+            }
+        });
         responseText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
