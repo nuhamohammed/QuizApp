@@ -16,16 +16,24 @@ public class MainActivity extends AppCompatActivity {
     private Button submitButton;//use Alt+Enter to auto-import Button
     private Button  colorButton;
     EditText responseText;
+    TextView numberText;
     TextView displayText;
+    private int  counter=0;
 
     public int getRandomColor(){
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
+    public void changeColor(View view){
+        colorButton.setBackgroundColor(getRandomColor());
+        counter+=1;
+        numberText.setText(counter+"");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        numberText=findViewById(R.id.numberText);
         displayText=findViewById(R.id.textBox);
         responseText=findViewById(R.id.responseEditText);
         submitButton = findViewById(R.id.clickButton);
@@ -38,12 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("testButton",str);
                // displayText.setText(displayText.getText().toString()+" "+responseText.getText().toString());
                 displayText.setText("Hi "+responseText.getText().toString()+"!");
-            }
-        });
-        colorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                colorButton.setBackgroundColor(getRandomColor());
             }
         });
         responseText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
