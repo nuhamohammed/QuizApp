@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button submitButton;//use Alt+Enter to auto-import Button
-
+    EditText responseText;
+    TextView displayText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        displayText=findViewById(R.id.textBox);
+        responseText=findViewById(R.id.responseEditText);
         submitButton = findViewById(R.id.clickButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,6 +26,21 @@ public class MainActivity extends AppCompatActivity {
                 String str = getString(R.string.button_greeting);
                 System.out.println(str);
                 Log.i("testButton",str);
+               // displayText.setText(displayText.getText().toString()+" "+responseText.getText().toString());
+                displayText.setText("Hi "+responseText.getText().toString()+"!");
+            }
+        });
+
+        responseText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(responseText.getText().toString().equals("TJ")){
+                        displayText.setText("TJ Rocks!");
+                        responseText.setText("");
+                        responseText.setHint("That's a good name.");
+                    }
+                }
             }
         });
     }
